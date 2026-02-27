@@ -1,12 +1,14 @@
 [project]
-name = "DANPOS3"
-version = "3.1.1"
-dependencies = []
+name = "danpos3"
+version = "3.2.1"
+dynamic = ["description", "readme", "dependencies", "license", "authors", "classifiers", "scripts"]
 
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-package-dir = {"danpos" = "."}
 packages = ["danpos"]
+
+[tool.setuptools.package-data]
+danpos = ["*.py"]
