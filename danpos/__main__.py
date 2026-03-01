@@ -3,14 +3,14 @@
 
 import os,sys
 from time import time
-from functions import danpos, div
+from danpos.functions import danpos, div
 from math import log10
 from copy import deepcopy
-from wig import Wig
-from wigs import Wigs
+from danpos.wig import Wig
+from danpos.wigs import Wigs
 import argparse,sys,os
-from lib import positionSelectorByGreatTSS,positionDicMinMax,vioplot,positionDistance,positionSelectorByValue,positionSelectorByGeneStructure,batchOccAroundPoints,batchOccInRegions,occAroundPoints,plot,batchOccPSD,retrieve_positions_by_value,batchPositionDistanceDistribution,batchPositionValDistribution
-from wiq import rawsort,refquantile,changevalue,qnorwig,wiq,wig2wiq
+from danpos.lib import positionSelectorByGreatTSS,positionDicMinMax,vioplot,positionDistance,positionSelectorByValue,positionSelectorByGeneStructure,batchOccAroundPoints,batchOccInRegions,occAroundPoints,plot,batchOccPSD,retrieve_positions_by_value,batchPositionDistanceDistribution,batchPositionValDistribution
+from danpos.wiq import rawsort,refquantile,changevalue,qnorwig,wiq,wig2wiq
 from rpy2.robjects import r
 
 #sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0) # This allow DANPOS to print each message on screen immediately.

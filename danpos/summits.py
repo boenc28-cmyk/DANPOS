@@ -66,7 +66,7 @@ class Summits:
         '''
         from rpy2.robjects import r, FloatVector
         from random import shuffle
-        from functions import log10fuztest
+        from danpos.functions import log10fuztest
         # ct=r('''function(x){return(chisq.test(x)$p.value)}''')
         # xx=numpy.array(range(rd*2))
         # ftest=r('''function(x,y){return(var.test(x,y)$p.value)}''')
