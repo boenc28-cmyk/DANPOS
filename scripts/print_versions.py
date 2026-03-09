@@ -1,39 +1,32 @@
+#!/usr/bin/env python
 import sys
-import pkg_resources
-import os
+import subprocess
+try:
+    import importlib.metadata as metadata
+except ImportError:
+    # This acts as the fallback for Python 3.7
+    import importlib_metadata as metadata 
 
-print("\nPython version")
-print (sys.version)
-required = {'rpy2','argparse','numpy','pysam'}
-installed = {pkg.key for pkg in pkg_resources.working_set}
-missing = required - installed
-available = [pkg for pkg in required if pkg not in missing]
-print("-------------------------------------------------\n")
+def check_pkg(name):
+    try:
+        version = metadata.version(name)
+        print(f"FOUND: {name} (version {version})")
+        return True
+    except metadata.PackageNotFoundError:
+        print(f"MISSING: {name}")
+        return False
 
-print(os.system("R --version"))
-print("-------------------------------------------------\n")
+print("\n--- Diagnostic Check ---")
+required = ['rpy2', 'numpy', 'pysam']
+all_found = all([check_pkg(p) for p in required])
 
-print(os.system("samtools --version"))
-print("-------------------------------------------------\n")
+# Check external CLI tools
+r_check = subprocess.run(["R", "--version"], capture_output=True)
+sam_check = subprocess.run(["samtools", "--version"], capture_output=True)
 
-print("AVAILABLE python packages:")
-for pkg in available:
-	if pkg == "rpy2":
-		import rpy2
-		import importlib_metadata
-		print(pkg + ": " + importlib_metadata.version("rpy2"))
-	elif pkg == "argparse":
-		import argparse
-		print (pkg + ": "+ str(argparse.__version__))
-	elif pkg == "numpy":
-		import numpy as np
-		print("numpy: "+ str(np.__version__))
-	else:
-		import pysam
-		print("pysam: "+ str(pysam.__version__))
+if not all_found or r_check.returncode != 0 or sam_check.returncode != 0:
+    print("\nERROR: Missing dependencies or CLI tools failed.")
+    sys.exit(1) # This tells conda-build the test failed
 
-if len(missing) > 0:
-	print("\nMISSING python packages:")
-	print(missing)
-else:
-	print("\nGreat job! No missing python packages!")
+print("\nGreat job! All dependencies found.")
+sys.exit(0)
