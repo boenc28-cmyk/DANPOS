@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import numpy,os
 from copy import deepcopy
-from wig import Wig
+from danpos.wig import Wig
 from rpy2.robjects import r,FloatVector
 from time import time
 from random import randint
@@ -9,7 +9,7 @@ from math import log
 import gzip
 import sys
 import numpy as np
-import functions
+import danpos.functions
 import pysam
 
 class reads:

@@ -35,7 +35,7 @@ setup(name='DANPOS3',
       packages=['danpos'],
       entry_points={
         'console_scripts': [
-            'danpos = danpos.danpos:main', 
+            'danpos = danpos.__main__:main', 
         ],
       },
       install_requires=[
