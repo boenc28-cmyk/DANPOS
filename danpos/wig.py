@@ -6,7 +6,7 @@ from math import log10,sqrt,log
 from danpos.summits import Summits
 from time import time
 import sys
-import danpos.functions
+import danpos.functions as functions
 
 class Wig:
     def __init__(self,file="",gfile='',step=0,suppress=False):

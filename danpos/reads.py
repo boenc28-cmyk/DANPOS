@@ -9,7 +9,7 @@ from math import log
 import gzip
 import sys
 import numpy as np
-import danpos.functions
+import danpos.functions as functions
 import pysam
 
 class reads:

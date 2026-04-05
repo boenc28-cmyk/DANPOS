@@ -6,7 +6,7 @@ from rpy2.robjects import r,FloatVector
 from copy import deepcopy
 from time import time
 import sys
-import danpos.functions
+import danpos.functions as functions
 
 '''
 import sys,os,argparse,glob
