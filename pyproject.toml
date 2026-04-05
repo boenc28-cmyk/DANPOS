@@ -1,6 +1,6 @@
 [project]
 name = "danpos3"
-version = "3.2.1"
+version = "3.2.3"
 dynamic = ["description", "readme", "dependencies", "license", "authors", "classifiers", "scripts"]
 
 [build-system]

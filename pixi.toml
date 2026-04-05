@@ -16,7 +16,7 @@ preview = ["pixi-build"]
 
 [package]
 name = "DANPOS3"
-version = "3.0.1"
+version = "3.2.3"
 authors = ["Kaifu Chen", "Samantha Klasfeld", "Boen Chen <boenc28@gmail.com>"]
 description = "A toolkit for Dynamic Analysis of Nucleosome and Protein Occupancy by Sequencing"
 license = "GPL-3.0-or-later"
