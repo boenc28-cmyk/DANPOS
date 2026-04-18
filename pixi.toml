@@ -29,26 +29,28 @@ documentation = "https://sites.google.com/site/danposdoc/b-documentation"
 [package.build]
 backend = { name = "pixi-build-python", version = "*", channels = [  "https://prefix.dev/pixi-build-backends",  "https://prefix.dev/conda-forge"] }
 
+[package.host-dependencies]
+python = ">=3.7.6*"
+setuptools = "*"
+wheel = "*"
+pip = "*"
+
 [dependencies]
-python = "3.7.6.*"
-r-base = "4.0.1.*"
-samtools = "1.7.*"
-numpy = "1.18.5.*"
-pysam = "0.16.0.1.*"
-rpy2 = "3.3.*"
-scipy = ">=1.5.3,<2"
-importlib-metadata = ">=4.11.4,<5"
-setuptools = ">=69.0.3,<70"
+python = ">=3.7.6.*"
+r-base = ">=4.0.1.*"
+samtools = ">=1.7.*"
+numpy = ">=1.18.5.*"
+pysam = ">=0.16.0.1.*"
+rpy2 >= ">=3.3.*"
+scipy >= "*"
+importlib-metadata = "*"
+setuptools = "*"
+
+[pypi-dependencies]
+
 
 [package.build-dependencies]
-python = "3.7.6.*"
+python = ">=3.7.6*"
 setuptools = "*"
 wheel = "*"
-
-[package.host-dependencies]
-python = "3.7.6*"
-setuptools = "*"
-wheel = "*"
-
-
-
+pip = "*"

@@ -1,34 +1,45 @@
+schema_version: 1
+
 context:
   name: danpos3
-  version: "3.0.1"
+  version: "3.2.3"
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  path: .
+  url: https://github.com/boenc28-cmyk/DANPOS/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: 3ceda7452013517f22542ef47c8bc7bd0c49b0e1a32282097b67f3bc4ad7a6c8
 
 build:
   number: 0
-  script:
-    - mkdir -p $PREFIX/bin
-    - cp danpos.py $PREFIX/bin/danpos
-    - cp dpeak.py $PREFIX/bin/dpeak
-    - cp dregion.py $PREFIX/bin/dregion
-    - chmod +x $PREFIX/bin/danpos $PREFIX/bin/dpeak $PREFIX/bin/dregion
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vvv
 
 requirements:
   host:
-    - python == 3.7.6
+    - python >=3.7
+    - pip
+    - setuptools
+    - wheel
   run:
-    - python == 3.7.6
-    - numpy == 1.18.5
-    - pysam == 0.16.0.1
-    - samtools == 1.7
-    - r-base == 4.0.1
-    - rpy2 == 3.3
+    - python >=3.7
+    - samtools >=1.7
+    - rpy2 >=3.3.3
+    - numpy >=1.18.5
+    - pysam >=0.16.0.1
+    - scipy
+  run_exports:
+    - ${{ pin_subpackage(name, upper_bound="x") }}
 
-test:
-  commands:
-    - danpos --help
+tests:
+  - script:
+      - danpos -h
+
+about:
+  license: GPL-3.0-only
+  license_file: LICENSE
+  summary: A toolkit for Dynamic Analysis of Nucleosome Positioning and Occupancy by Sequencing - Version 3
+  homepage: https://github.com/boenc28-cmyk/DANPOS
+
