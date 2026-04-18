@@ -1,15 +1,74 @@
 [project]
-name = "DANPOS3"
-version = "3.0.1"
-dependencies = []
+name = "danpos"
+version = "3.2.3"
+description = "A toolkit for Dynamic Analysis of Nucleosome and Protein Occupancy by Sequencing"
+authors = [
+    { name = "Kaifu Chen" },
+    { name = "Samantha Klasfeld" },
+    { name = "Boen Chen", email = "boenc28@gmail.com" }
+]
+license = { text = "GPL-3.0-or-later" }
+readme = "README.md"
+requires-python = ">=3.7.6"
+# These are the dependencies that pip will see
+dependencies = [
+    "numpy>=1.18.5",
+    "pysam>=0.16.0.1",
+    "rpy2>=3.3",
+    "scipy",
+    "importlib-metadata",
+    "setuptools"
+]
+
+[project.urls]
+homepage = "https://sites.google.com/site/danposdoc/home"
+repository = "https://github.com/sklasfeld/DANPOS3"
+documentation = "https://sites.google.com/site/danposdoc/b-documentation"
 
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+# This points to the backend you were using in pixi.toml
+# build-backend = "pixi_build_python.backend"
+# requires = ["pixi-build-python"]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pixi.workspace]
+channels = ["conda-forge", "bioconda", "https://prefix.dev/pixi-build-backends"]
+platforms = ["linux-64", "osx-64"]
+preview = ["pixi-build"]
+
+[tool.pixi.dependencies]
+# Conda-specific dependencies (like R and samtools) go here
+python = ">=3.7.6"
+r-base = ">=4.0.1"
+samtools = ">=1.7"
+# We include these here to ensure Pixi pulls them from Conda-forge rather than PyPI
+numpy = ">=1.18.5"
+pysam = ">=0.16.0.1"
+rpy2 = ">=3.3"
+scipy = "*"
+
+[tool.pixi.pypi-dependencies]
+# This explicitly maps the name to the local directory
+danpos = { path = ".", editable = true }
+
+[tool.pixi.tasks]
+
+[tool.pixi.package]
+host-dependencies = { python = ">=3.7.6", setuptools = "*", wheel = "*", pip = "*" }
+build-dependencies = { python = ">=3.7.6", setuptools = "*", wheel = "*", pip = "*" }
+
+[tool.pixi.package.build]
+backend = { name = "pixi-build-python", version = "*", channels = ["https://prefix.dev/pixi-build-backends", "https://prefix.dev"] }
+# [tool.pixi.package.build]
+# backend = { name = "pixi-build-python", version = "0.4.*" } # or 0.1.* depending on version
+# channels = [
+#     "https://prefix.dev/pixi-build-backends",
+#     "https://prefix.dev/conda-forge"
+# ]
 
 [tool.setuptools]
-package-dir = {"danpos" = "."}
 packages = ["danpos"]
 
-[project.scripts]
-danpos = "danpos:main" 
+[tool.setuptools.package-data]
+danpos = ["*.py"]

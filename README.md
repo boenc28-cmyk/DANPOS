@@ -82,4 +82,7 @@ You can also scroll up to the "code" button and look at the clone options there.
   * numpy 1.18.5
   * pysam 0.16.0.1
 
-To test your environment for these packages, use the script `print_versions.py`
+To test your environment for these packages, use the command:
+```
+python scripts/print_versions.py
+```

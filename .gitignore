@@ -6,3 +6,6 @@ __pycache__/
 # pixi environments
 .pixi/*
 !.pixi/config.toml
+build/
+DANPOS3.egg-info/
+dist/

@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import os,sys,re,argparse
-from wig import Wig
+from danpos.wig import Wig
 from glob import glob
 from time import time
-from functions import div
+from danpos.functions import div
 
 def rawsort(ifile,sort_ofile,gfile,format,step=10,suppress=False,buffer=None):
     tm=time()

@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 from time import time
 import numpy,glob,os
-from wigs import Wigs
-from wig import Wig
-from summits import Summits
-from reads import reads
+from danpos.wigs import Wigs
+from danpos.wig import Wig
+from danpos.summits import Summits
+from danpos.reads import reads
 from copy import deepcopy
 from random import randint
 from math import log10,log,sqrt
@@ -1622,8 +1622,8 @@ def scn(tpath,name='result',pdis=3000,step=1,mapq=30,clipSize=3,inter=True,intra
     parameter:
     norto: may be 'mappable','unique','trans'
     '''
-    from lib import translocationReads
-    from lib import translocationLinks
+    from danpos.lib import translocationReads
+    from danpos.lib import translocationLinks
     if not os.path.exists(name):os.mkdir(name)
     pairs, groups=pathParser(tpath)
     allWigs=deepcopy(groups)

@@ -3,10 +3,10 @@ import numpy,re
 from copy import deepcopy
 from rpy2.robjects import r,FloatVector
 from math import log10,sqrt,log
-from summits import Summits
+from danpos.summits import Summits
 from time import time
 import sys
-import functions
+import danpos.functions as functions
 
 class Wig:
     def __init__(self,file="",gfile='',step=0,suppress=False):
@@ -1174,6 +1174,7 @@ class Wig:
         for chrom in self.data:
             value+=self.data[chrom].sum()
             size+=self.data[chrom].size
+        print("TEST:", size,value)
         return functions.div(value,size)
     def multiply(self,wig2):
         '''
