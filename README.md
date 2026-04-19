@@ -1,7 +1,9 @@
 # DANPOS3
 
-For questions on this code, please feel free to checkout the DANPOS project forum at: 
-https://groups.google.com/forum/#!forum/danpos
+For questions on this code, please feel free to checkout: 
+- The DANPOS project forum at: https://groups.google.com/forum/#!forum/danpos
+- The Issues tab
+- The Discussions tab(work in progress right now!)
 
 ## Background
 
@@ -18,7 +20,7 @@ This code was written to conintue maintaining DANPOS, which previously has not b
 
 ## Installation
 To install, you may do it one of 2 ways.
-1. ~~Install as a bioconda package(new!)~~ Temporarily broken, sorry!
+1. Install as a bioconda package(new!)
 2. Build from source
 
 ### Bioconda install
@@ -59,28 +61,76 @@ To download the repository
 ```
 git clone https://github.com/boenc28-cmyk/DANPOS
 ```
-
-To install the exact versions of the dependencies use type:
-```
-cd DANPOS
-pip install -r requirements.txt
-```
-
-[To be able to execute these scripts from other directories 
-easily, please set your current working directory to your
-$PATH variable.](https://opensource.com/article/17/6/set-path-linux)
-
+Then you can run `cd DANPOS` to move to the correct directory.
 You can also scroll up to the "code" button and look at the clone options there. Make sure you're cloning off of the main branch!
 
+
+To build from source you have 3 options:
+1. Build with conda(or pixi). I have included both the recipe.yaml and meta.yaml.
+2. `pip install .`. Installs the package from the cloned code. I have included a pyproject.toml for this.
+3. Run as a module(`python -m`)
+#### Build with Conda(recipe.yaml)
+This method uses the newer v1 recipe format.
+
+Install the build tool (if not already installed):
+```
+conda install -c conda-forge rattler-build
+```
+Build the package from your local recipe.yaml:
+```
+rattler-build build --recipe recipe.yaml
+```
+Install the freshly built package into your environment:
+```
+conda install --use-local danpos
+```
+#### Build with Conda(meta.yaml)
+This uses the standard conda-build tool that has been the industry standard for years.
+
+Install the build tool:
+```
+conda install conda-build
+```
+Build the package from your local meta.yaml
+```
+conda build .
+```
+Install the locally built package
+```
+conda install --use-local danpos
+```
+#### Build with Pixi
+Build with rattler-build (via pixi global)
+```
+pixi global install rattler-build
+rattler-build build --recipe recipe.yaml
+```
+Add the local build to a pixi project
+```
+pixi add --path ./path/to/generated/package.conda danpos
+```
+#### Build with Pip
+Standard installation
+```
+pip install .
+```
+Editable mode (changes to code take effect immediately)
+```
+pip install -e .
+```
+#### Run as a python module
+```
+python -m danpos
+```
 ### Package and Library versions
-* Python 3.7.6
-* R version 4.0.1
-* samtools 1.7 using htslib 1.7
+* Python >=3.7.6
+* R version >=4.0.1
+* samtools >=1.7
 * Python Libraries
-  * rpy2 3.3.3
-  * argparse 1.1
-  * numpy 1.18.5
-  * pysam 0.16.0.1
+  * rpy2 >=3.3.3
+  * argparse >=1.1
+  * numpy >=1.18.5
+  * pysam >=0.16.0.1
 
 To test your environment for these packages, use the command:
 ```
