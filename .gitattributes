@@ -5,5 +5,4 @@ pixi.toml export-ignore
 .pixi/ export-ignore
 build/ export-ignore
 *.conda export-ignore
-recipe.yaml export-ignore
 DANPOS3.egg-info export-ignore

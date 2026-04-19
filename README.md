@@ -56,17 +56,19 @@ Then install:
 ```
 conda install danpos3
 ```
-### Build from source(this was taken from the source, but modified). 
+### Build from source. 
 To download the repository
 ```
 git clone https://github.com/boenc28-cmyk/DANPOS
 ```
+OR download the \*.tar.gz or \*.zip from the releases and decompress.
+
 Then you can run `cd DANPOS` to move to the correct directory.
 You can also scroll up to the "code" button and look at the clone options there. Make sure you're cloning off of the main branch!
 
 
 To build from source you have 3 options:
-1. Build with conda(or pixi). I have included both the recipe.yaml and meta.yaml.
+1. Build with conda(or pixi). I have included both the recipe.yaml and meta.yaml. Just keep in mind that they are located inside the conda-recipes folder
 2. `pip install .`. Installs the package from the cloned code. I have included a pyproject.toml for this.
 3. Run as a module(`python -m`)
 #### Build with Conda(recipe.yaml)
@@ -121,18 +123,4 @@ pip install -e .
 #### Run as a python module
 ```
 python -m danpos
-```
-### Package and Library versions
-* Python >=3.7.6
-* R version >=4.0.1
-* samtools >=1.7
-* Python Libraries
-  * rpy2 >=3.3.3
-  * argparse >=1.1
-  * numpy >=1.18.5
-  * pysam >=0.16.0.1
-
-To test your environment for these packages, use the command:
-```
-python scripts/print_versions.py
 ```

@@ -7,5 +7,5 @@ __pycache__/
 .pixi/*
 !.pixi/config.toml
 build/
-DANPOS3.egg-info/
+*.egg-info/
 dist/
