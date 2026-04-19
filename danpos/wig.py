@@ -1174,7 +1174,6 @@ class Wig:
         for chrom in self.data:
             value+=self.data[chrom].sum()
             size+=self.data[chrom].size
-        print("TEST:", size,value)
         return functions.div(value,size)
     def multiply(self,wig2):
         '''
