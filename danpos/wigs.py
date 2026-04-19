@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 import os,glob,numpy
-from wig import Wig
+from danpos.wig import Wig
 from rpy2.robjects.packages import importr
 from rpy2.robjects import r,FloatVector
 from copy import deepcopy
 from time import time
 import sys
-import functions
+import danpos.functions as functions
 
 '''
 import sys,os,argparse,glob

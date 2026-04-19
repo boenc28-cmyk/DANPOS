@@ -2,13 +2,13 @@
 import os,sys,re
 from rpy2.robjects import r,FloatVector,StrVector
 from glob import glob
-from wig import Wig
-from wigs import Wigs
-from reads import reads
+from danpos.wig import Wig
+from danpos.wigs import Wigs
+from danpos.reads import reads
 import numpy
 from copy import deepcopy
 from math import log10
-from functions import div
+from danpos.functions import div
 
 #from functions import merge_peaks_by_head_tail_distance
 def batchOccInRegions(wgs,outname=None,groupname='',outmode='w',chrColID=1,nameColID=0,startColIDpos=3,startColIDneg=4,endColIDpos=4,endColIDneg=3,straColID=2,sep='\t',second_sep=None,step=0,\
