@@ -11,9 +11,9 @@ import numpy
 
 def div(a, b):
     if isinstance(a, int) and isinstance(b, int):
-        return(a//b)
+        return a // b
     else:
-        return(a/b)
+        return a / b
 
 
 class Summits:
@@ -22,7 +22,7 @@ class Summits:
         self.data = {}
 
     def fetchValueFromWig(self, wig):
-        '''
+        """
         Description:
             retrieve occupancy value from a Wig class instance
 
@@ -31,29 +31,29 @@ class Summits:
 
         Value:
             None
-        '''
+        """
         smt = self
         for cr in smt.data:
-            if 'v' not in smt.data[cr]:
-                smt.data[cr]['v'] = numpy.array([0.0])
-                smt.data[cr]['v'].resize(smt.data[cr]['p'].size, refcheck=0)
-            ps = smt.data[cr]['p']
+            if "v" not in smt.data[cr]:
+                smt.data[cr]["v"] = numpy.array([0.0])
+                smt.data[cr]["v"].resize(smt.data[cr]["p"].size, refcheck=0)
+            ps = smt.data[cr]["p"]
             # w=wig.data[cr]
             lth = ps.size
             i = 0
-            while(i < lth):
+            while i < lth:
                 tp = div(ps[i], wig.step)
                 if cr in wig.data:
                     if tp > wig.data[cr].size:
                         # issue: https://groups.google.com/g/danpos/c/dPxLBr_g6Bc
-                        wig.data[cr].resize(int(tp)+1, refcheck=0)
-                    smt.data[cr]['v'][i] = wig.data[cr][int(tp)]
+                        wig.data[cr].resize(int(tp) + 1, refcheck=0)
+                    smt.data[cr]["v"][i] = wig.data[cr][int(tp)]
                 else:
-                    smt.data[cr]['v'][i] = 1
+                    smt.data[cr]["v"][i] = 1
                 i += 1
 
     def positioning(self, wig, rd=None):
-        '''
+        """
         Description:
             Calculate nucleosome (summit) positioning score and P value.
 
@@ -63,38 +63,37 @@ class Summits:
 
         Value:
             None
-        '''
-        from rpy2.robjects import r, FloatVector
-        from random import shuffle
+        """
         from danpos.functions import log10fuztest
+
         # ct=r('''function(x){return(chisq.test(x)$p.value)}''')
         # xx=numpy.array(range(rd*2))
         # ftest=r('''function(x,y){return(var.test(x,y)$p.value)}''')
         smt = self
-        step = wig.step
         # rd=rd/step+1
         # tarray=numpy.array(0.0)
         # tarray.resize(rd*2,refcheck=0)
         for cr in smt.data:
             print(cr)
-            ps = smt.data[cr]['p']
-            s, ppos = numpy.array([0.0]*rd*2), numpy.array([0.0]*rd*2)
+            ps = smt.data[cr]["p"]
+            s, ppos = numpy.array([0.0] * rd * 2), numpy.array([0.0] * rd * 2)
             lth = ps.size
             s.resize(lth, refcheck=0)
             ppos.resize(lth, refcheck=0)
             if cr in wig.data:  # add by kaifu on Jan 27, 2014
-                w = wig.data[cr]
+                wig.data[cr]
                 i = 0
-                while(i < lth):
+                while i < lth:
                     temp = log10fuztest(
-                        pc=ps[i], pt=ps[i], cr=cr, cwig=wig, twig=None, rd=rd)
+                        pc=ps[i], pt=ps[i], cr=cr, cwig=wig, twig=None, rd=rd
+                    )
                     ppos[i], s[i] = temp
                     i += 1
-            smt.data[cr]['s'] = s
-            smt.data[cr]['ppos'] = ppos
+            smt.data[cr]["s"] = s
+            smt.data[cr]["ppos"] = ppos
 
     def merge(self, wg, distance=110):
-        '''
+        """
         Description:
             Merge neighboring summits whos distance from each other shorter than a specified distance.
 
@@ -104,79 +103,82 @@ class Summits:
 
         Value:
             None.
-        '''
+        """
 
-        step = wg.step
-        ctime = time()
-        tnum = 0
+        time()
         onum = 0
         for cr in self.data:
-            print(cr, ":", end=' ')
-            ps = self.data[cr]['p']  # summits positions
-            vs = self.data[cr]['v']  # summits values
+            print(cr, ":", end=" ")
+            ps = self.data[cr]["p"]  # summits positions
+            vs = self.data[cr]["v"]  # summits values
             onum += ps.size  # original number of summits
             print(ps.size, "summits, merging ...")
             merge = 1
-            while(merge > 0):
+            while merge > 0:
                 merge = 0
                 nps = numpy.array([0])
                 nvs = numpy.array([0.0])
                 # ps=dic.keys()
                 # ps.sort()
-                lth = ps.size-2
-                nps.resize(lth+2, refcheck=0)
-                nvs.resize(lth+2, refcheck=0)
+                lth = ps.size - 2
+                nps.resize(lth + 2, refcheck=0)
+                nvs.resize(lth + 2, refcheck=0)
                 if lth < 0:
                     continue
                 i = 0
                 ni = 0
                 while i < lth:
-                    td = ps[i+1]-ps[i]
+                    td = ps[i + 1] - ps[i]
                     if td >= distance:
                         nps[ni], nvs[ni] = ps[i], vs[i]
                         ni += 1
                     else:
                         merge += 1
-                        td2 = ps[i+2]-ps[i+1]
+                        td2 = ps[i + 2] - ps[i + 1]
                         if td2 < td:
                             nps[ni], nvs[ni] = ps[i], vs[i]
                             ni += 1
                         else:
-                            if vs[i] > vs[i+1]:
-                                vs[i+1] = vs[i]
-                                ps[i+1] = ps[i]
-                            elif vs[i] == vs[i+1]:
-                                pos = div((ps[i]+ps[i+1]), 2)
-                                ps[i+1] = pos
+                            if vs[i] > vs[i + 1]:
+                                vs[i + 1] = vs[i]
+                                ps[i + 1] = ps[i]
+                            elif vs[i] == vs[i + 1]:
+                                pos = div((ps[i] + ps[i + 1]), 2)
+                                ps[i + 1] = pos
                                 # print(div(pos,wg.step))
                                 # added by Kaifu Chen Jul 10,2012 ######
-                                vs[i+1] = wg.data[cr][int(div(pos, wg.step))]
+                                vs[i + 1] = wg.data[cr][int(div(pos, wg.step))]
                     i += 1
-                if (ps[-1]-ps[-2]) >= distance:
-                    nps[ni], nps[ni+1], nvs[ni], nvs[ni +
-                                                     1] = ps[-2], ps[-1], vs[-2], vs[-1]
+                if (ps[-1] - ps[-2]) >= distance:
+                    nps[ni], nps[ni + 1], nvs[ni], nvs[ni + 1] = (
+                        ps[-2],
+                        ps[-1],
+                        vs[-2],
+                        vs[-1],
+                    )
                     ni += 2
                 else:
                     if vs[-2] > vs[-1]:
                         nps[ni], nvs[ni] = ps[-2], vs[-2]
                     elif vs[-2] == vs[-1]:
                         ###### added by Kaifu Chen Jul 10,2012 ######
-                        nps[ni] = div((ps[-2]+ps[-1]), 2)
-                        nvs[ni] = wg.data[cr][int(
-                            div(div((ps[-2]+ps[-1]), 2), wg.step))]
+                        nps[ni] = div((ps[-2] + ps[-1]), 2)
+                        nvs[ni] = wg.data[cr][
+                            int(div(div((ps[-2] + ps[-1]), 2), wg.step))
+                        ]
                     else:
                         nps[ni], nvs[ni] = ps[-1], vs[-1]
                     ni += 1
                     merge += 1
                 ps = nps[:ni]
                 vs = nvs[:ni]
-            print(ps.size, 'left')
-            self.data[cr]['p'] = ps
-            self.data[cr]['v'] = vs
+            print(ps.size, "left")
+            self.data[cr]["p"] = ps
+            self.data[cr]["v"] = vs
         return True
 
     def fillgap(self, wg, height=5, distance=110):
-        '''
+        """
         Description:
             Insert a summit between two neighboring summits whose distance from each other larger than a specified range.
 
@@ -186,49 +188,49 @@ class Summits:
 
         Value:
             None
-        '''
+        """
 
         step = wg.step
-        midis, madis = distance*2.5, distance*3.5
-        ctime = time()
+        midis, madis = distance * 2.5, distance * 3.5
+        time()
         for cr in self.data:
             id = []
             np = []
             nv = []
-            print(cr, ":", end=' ')
-            ps = self.data[cr]['p']  # summits positions
-            vs = self.data[cr]['v']  # summits values
-            lth = ps.size-1
+            print(cr, ":", end=" ")
+            ps = self.data[cr]["p"]  # summits positions
+            self.data[cr]["v"]  # summits values
+            lth = ps.size - 1
             i = 0
-            while(i < lth):
-                gs = ps[i+1]-ps[i]
+            while i < lth:
+                gs = ps[i + 1] - ps[i]
                 if gs > midis and gs < madis:
-                    p = int(div((ps[i+1]+ps[i])*0.5, step))
+                    p = int(div((ps[i + 1] + ps[i]) * 0.5, step))
                     # print gs, wg.data[cr][p],wg.data[cr][ps[i]/step],wg.data[cr][ps[i+1]/step]
                     if wg.data[cr][int(p)] >= height:
-                        id.append(i+1)
-                        np.append(p*step)
+                        id.append(i + 1)
+                        np.append(p * step)
                         nv.append(wg.data[cr][int(p)])
                 i += 1
             alth = len(id)  # total count of insert smts
             print(alth)
-            nlth = lth+1+alth  # the final smts count
+            nlth = lth + 1 + alth  # the final smts count
             for k in self.data[cr]:
                 self.data[cr][k] = deepcopy(self.data[cr][k])
                 self.data[cr][k].resize(nlth, refcheck=0)
             j = 0
             while j < alth:
                 # the list has been extend j step backward in the previous j cycling
-                i = id[j]+j
+                i = id[j] + j
                 # the reason to do this is, there might be some other lists in addition to the 'p' and 'v' lists
                 for k in self.data[cr]:
-                    self.data[cr][k][i+1:nlth] = self.data[cr][k][i:(nlth-1)]
+                    self.data[cr][k][i + 1 : nlth] = self.data[cr][k][i : (nlth - 1)]
                     self.data[cr][k][i] = 0
-                self.data[cr]['p'][i] = np[j]
-                self.data[cr]['v'][i] = nv[j]
+                self.data[cr]["p"][i] = np[j]
+                self.data[cr]["v"][i] = nv[j]
                 j += 1
         return True
 
 
 if __name__ == "__main__":
-    print('')
+    print("")
