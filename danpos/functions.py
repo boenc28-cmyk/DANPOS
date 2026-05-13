@@ -2417,10 +2417,10 @@ def var(p, cr, wig, step, rd, bv, bc):
     for d in range(start, end, step):
         vd = d * d
         try:
-            v1 += vd * (wig.data[cr][tp1 + div(d, step)] - mi)
-            c1 += wig.data[cr][tp1 + div(d, step)] - mi
+            v1 += vd * (wig.data[cr][int(tp1 + div(d, step))] - mi)
+            c1 += wig.data[cr][int(tp1 + div(d, step))] - mi
         except Exception as e:
-            print("An error occurred:", e)
+            print("An error occurred at line 2423 in functions.py:", e)
             print(p, d, wig.data[cr].size)
             # return [v1/c1,c1]
     return [div(v1, c1), c1]

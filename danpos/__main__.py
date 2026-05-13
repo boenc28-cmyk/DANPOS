@@ -3243,26 +3243,10 @@ def main():
         else:
             printHelp()
     else:
-        print("\ndanpos version 3.1.1")
+        print("\ndanpos version 3.2.3")
         print("For a list of functions in danpos, please try:\npython danpos.py -h")
         print("")
 
 
 if __name__ == "__main__":
     main()
-    # if len(sys.argv)>1:
-    #     if sys.argv[1]=='dpos':runDANPOS(command='dpos')
-    #     elif sys.argv[1]=='dpeak':runDANPOS(command='dpeak')
-    #     elif sys.argv[1]=='dregion':runDANPOS(command='dregion')
-    #     elif sys.argv[1]=='dtriple':runDANPOS(command='dtriple')
-    #     elif sys.argv[1]=='stat':runPositionStatistics()
-    #     elif sys.argv[1]=='profile':profile()
-    #     elif sys.argv[1]=='selector':runPositionSelector()
-    #     elif sys.argv[1]=='valuesAtRanks':retrievePositionValuesAtRanks()
-    #     elif sys.argv[1]=='wiq':wiq()
-    #     elif sys.argv[1]=='wig2wiq':wig2wiq()
-    #     else:printHelp()
-    # else:
-    #     print('\ndanpos version 3.1.1')
-    #     print('For a list of functions in danpos, please try:\npython danpos.py -h')
-    #     print('')

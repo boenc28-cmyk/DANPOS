@@ -56,8 +56,3 @@ build-dependencies = { python = ">=3.7.6", hatchling = "*"}
 
 [tool.pixi.package.build]
 backend = { name = "pixi-build-python", version = "*", channels = ["https://prefix.dev"] }
-
-
-[tool.ruff.lint]
-select = ["E", "F", "NPY", "B", "UP"]
-ignore = ["E501"]  # line too long

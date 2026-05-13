@@ -9,6 +9,8 @@ from time import time
 import sys
 import danpos.functions as functions
 
+import math
+
 
 class Wig:
     def __init__(self, file="", gfile="", step=0, suppress=False):
@@ -1692,9 +1694,16 @@ class Wig:
         # return self.sum()*1.0/self.gsize()
         size, value = 0, 0
         for chrom in self.data:
+            chr_sum = self.data[chrom].sum()
+            if math.isinf(chr_sum):
+                print(
+                    "WARNING: chrom",
+                    chrom,
+                    "has inf value and will be excluded from calculating the whole genome average",
+                )
+                continue
             value += self.data[chrom].sum()
             size += self.data[chrom].size
-        print("TEST:", size, value)
         return functions.div(value, size)
 
     def multiply(self, wig2):
@@ -1878,8 +1887,16 @@ class Wig:
                             out.data[chrom][p] = 0
                         elif wig1.data[chrom][p] > wig2.data[chrom][p]:
                             out.data[chrom][p] = 0 - result[p - start]
+                            if math.isinf(
+                                out.data[chrom][p]
+                            ):  # Infinity values in out.data[chrom][p] will be set to 300 if wig1.data[chrom][p] > wig2.data[chrom][p]
+                                out.data[chrom][p] = 300
                         elif wig1.data[chrom][p] < wig2.data[chrom][p]:
                             out.data[chrom][p] = result[p - start]
+                            if math.isinf(
+                                out.data[chrom][p]
+                            ):  # Infinity values in out.data[chrom][p] will be set to -300 if wig1.data[chrom][p] < wig2.data[chrom][p]
+                                out.data[chrom][p] = -300
                         p += 1
         return out
 
