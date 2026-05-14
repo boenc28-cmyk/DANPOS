@@ -641,7 +641,7 @@ packages:
 - pypi: ./
   name: danpos
   version: 3.2.3
-  sha256: 31e7ea7dfcb3e3aa3a31a39ecf9abf7f08bb28d1bde6fa8231e1b3fed80ef0fb
+  sha256: 41582db5de909e93f5856b65168aff4f6f8938ab1d3f9fea7615d4b0c167d3e1
   requires_dist:
   - numpy>=1.18.5
   - pysam>=0.16.0.1

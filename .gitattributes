@@ -6,3 +6,5 @@ pixi.toml export-ignore
 build/ export-ignore
 *.conda export-ignore
 DANPOS3.egg-info export-ignore
+Test_Data filter=lfs diff=lfs merge=lfs -text
+**.zip filter=lfs diff=lfs merge=lfs -text
