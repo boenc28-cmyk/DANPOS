@@ -614,12 +614,12 @@ class Wig:
             sys.stdout.write("searching position edges ...\n")
         else:
             sys.stdout.write("saving positions ...\n")
-        width = functions.div(width, 2 * twig.step)
+        width = int(functions.div(width, 2 * twig.step))
         dic = smts.data
         functions.div(distance, 2)
-        halfdis = functions.div(distance, (2 * twig.step))
+        halfdis = int(functions.div(distance, 2 * twig.step))
         for chrom in dic:
-            lth = functions.div(twig.chrSize(chrom), twig.step) - 1
+            lth = int(functions.div(twig.chrSize(chrom), twig.step)) - 1
             sys.stdout.write(chrom + "\n")
             if lth == 0:
                 continue
@@ -641,7 +641,7 @@ class Wig:
                         pos + 74 - (74 % self.step) + 1,
                     )
                 else:
-                    ppp = functions.div(pos, twig.step)
+                    ppp = int(functions.div(pos, twig.step))
                     p = ppp - 1
                     while start == 0:
                         if p <= width:
@@ -833,12 +833,12 @@ class Wig:
             sys.stdout.write("searching position edges ...\n")
         else:
             sys.stdout.write("saving positions ...\n")
-        width = functions.div(width, 2 * twig.step)
+        width = int(functions.div(width, 2 * twig.step))
         dic = smts.data
         functions.div(distance, 2)
-        halfdis = functions.div(distance, (2 * twig.step))
+        halfdis = int(functions.div(distance, 2 * twig.step))
         for chrom in dic:
-            lth = functions.div(twig.chrSize(chrom), twig.step) - 1
+            lth = int(functions.div(twig.chrSize(chrom), twig.step)) - 1
             sys.stdout.write(chrom + "\n")
             if lth == 0:
                 continue
@@ -865,7 +865,7 @@ class Wig:
                         pos + 74 - (74 % self.step) + 1,
                     )
                 else:
-                    ppp = functions.div(pos, twig.step)
+                    ppp = int(functions.div(pos, twig.step))
                     p = ppp - 1
                     while start == 0:
                         if p <= width:

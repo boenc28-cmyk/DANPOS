@@ -24,10 +24,7 @@ from scipy.stats import poisson, f
 
 
 def isint(x):
-    if type(x).__module__ == "numpy":
-        return x.dtype == numpy.integer
-    else:
-        return isinstance(x, int)
+    return isinstance(x, (int, numpy.integer))
 
 
 def div(a, b):
