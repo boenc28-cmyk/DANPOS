@@ -1,6 +1,7 @@
 env/*
 .vscode/*
 .vscode
+.vscode/github-accounts.json
 
 .DS_Store
 __pycache__/
